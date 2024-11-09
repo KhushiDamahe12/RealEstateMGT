@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { fetchProjects } from '../../services/api';
 import { Project } from '../../types';
 
 export default function ProjectsSection() {
-    const [_projects, setProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<Project[]>([]);
+    console.log(projects);
 // Dummy data for development
 const dummyProjects: Project[] = [
     {
@@ -11,18 +12,21 @@ const dummyProjects: Project[] = [
         name: 'Project Alpha',
         description: 'This is a short description of Project Alpha. It involves exciting features and developments.',
         image: 'https://via.placeholder.com/300x200', // Placeholder image URL
+        status:'done',
     },
     {
         id: '2',
         name: 'Project Beta',
         description: 'This is a short description of Project Beta. It is packed with innovative solutions and ideas.',
         image: 'https://via.placeholder.com/300x200', // Placeholder image URL
+        status:'done',
     },
     {
         id: '3',
         name: 'Project Gamma',
         description: 'This is a short description of Project Gamma. It focuses on cutting-edge technology.',
         image: 'https://via.placeholder.com/300x200', // Placeholder image URL
+        status:'done',
     },
 ];
 

@@ -20,8 +20,11 @@ export default function LoginPage() {
                 navigate('/admin')
                
             }
-        } catch (error: any) {
-            setError(error.message || 'Login failed. Please try again.');
+        } catch (error: unknown) {
+            if(error instanceof Error){
+
+                setError(error.message || 'Login failed. Please try again.');
+            }
         }
     };
 

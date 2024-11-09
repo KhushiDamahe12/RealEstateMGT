@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Client } from '../../types';
 
 // Dummy data for development
-const dummyClients: Client[] = [
+const dummyClients = [
     {
         id: '1',
         name: 'John Doe',
-        description: 'RealTrust helped us achieve our goals with remarkable ease and efficiency. Highly recommended!',
-        image: 'https://via.placeholder.com/150x150', // Placeholder image URL
+        description: 'Great service!',
+        image: '/images/client1.jpg',
         designation: 'CEO, Company A',
+        email: 'john@example.com',
+        phone: '+1234567890'
     },
     {
         id: '2',
         name: 'Jane Smith',
-        description: 'An outstanding experience from start to finish. RealTrust truly understands our needs.',
-        image: 'https://via.placeholder.com/150x150', // Placeholder image URL
+        description: 'Highly recommend!',
+        image: '/images/client2.jpg',
         designation: 'CTO, Company B',
+        email: 'jane@example.com',
+        phone: '+0987654321'
     },
     {
         id: '3',
-        name: 'Emily Johnson',
-        description: 'Professional, efficient, and reliable. RealTrust is our go-to partner for all projects.',
-        image: 'https://via.placeholder.com/150x150', // Placeholder image URL
+        name: 'Bob Johnson',
+        description: 'Very satisfied!',
+        image: '/images/client3.jpg',
         designation: 'Project Manager, Company C',
-    },
+        email: 'bob@example.com',
+        phone: '+1122334455'
+    }
 ];
 
 export default function ClientsSection() {

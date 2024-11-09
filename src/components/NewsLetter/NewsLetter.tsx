@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react';
 import { subscribe } from '../../services/api';
 import { FiMail } from 'react-icons/fi';
@@ -5,7 +6,7 @@ import { FiMail } from 'react-icons/fi';
 export default function NewsletterSubscription() {
   const [email, setEmail] = useState('');
 
-  const handleSubscribe = async (event: any) => {
+  const handleSubscribe = async (event: React.FormEvent) => {
     event.preventDefault();
     await subscribe({ email });
     setEmail(''); // Clear the input after subscription
