@@ -62,17 +62,18 @@ const ContactForm: React.FC = () => {
                 />
             </div>
             <div className="mb-2">
-                <label className="block font-semibold  text-gray-300 mb-1" htmlFor="city">Query</label>
-                <textarea
+                <label className="block font-semibold text-gray-300 mb-1" htmlFor="mobile">City</label>
+                <input
+                    type="tel"
                     id="city"
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
                     required
-                    className="focus:outline-none text-white w-full px-3 py-1 border rounded-md bg-transparent bg-opacity-50 resize-none"
-                    
+                    className="focus:outline-none text-white w-full px-3 py-1 border rounded-md bg-transparent bg-opacity-50"
                 />
             </div>
+         
             <button type="submit" className="w-auto mt-1 bg-orange-500 text-white px-4 py-1.5 rounded-md hover:bg-orange-600 font-bold">
                 Send Quick Query
             </button>

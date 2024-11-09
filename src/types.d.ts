@@ -6,12 +6,13 @@ export interface Project {
 }
 
 export interface Client {
-    id: string;
-    name: string;
-    description: string;
-    image: string;
-    designation: string;
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  designation: string;
 }
+
 
 export interface ContactForm {
     fullName: string;
@@ -36,15 +37,8 @@ export interface Project {
   image: string;
   name: string;
   description: string;
-  status: string;
 }
 
-export interface Client {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-}
 
 export interface Contact {
   id: string;

@@ -40,7 +40,6 @@ export const fetchProjects = async (): Promise<Project[]> => {
     throw error;
   }
 };
-
 export const addProject = async (projectData: Project): Promise<Project> => {
   try {
     const response = await instance.post(endpoints.addProject, projectData);
@@ -50,7 +49,6 @@ export const addProject = async (projectData: Project): Promise<Project> => {
     throw error;
   }
 };
-
 export const updateProject = async (projectId: string, projectData: Partial<Project>): Promise<Project> => {
   try {
     const response = await instance.put(endpoints.updateProject(projectId), projectData);
@@ -61,6 +59,7 @@ export const updateProject = async (projectId: string, projectData: Partial<Proj
   }
 };
 
+
 export const deleteProject = async (projectId: string): Promise<void> => {
   try {
     await instance.delete(endpoints.deleteProject(projectId));
@@ -69,7 +68,6 @@ export const deleteProject = async (projectId: string): Promise<void> => {
     throw error;
   }
 };
-
 // Clients
 export const fetchClients = async (): Promise<Client[]> => {
   try {
@@ -80,7 +78,6 @@ export const fetchClients = async (): Promise<Client[]> => {
     throw error;
   }
 };
-
 export const addClient = async (clientData: Client): Promise<Client> => {
   try {
     const response = await instance.post(endpoints.addClient, clientData);
@@ -101,6 +98,7 @@ export const updateClient = async (clientId: string, clientData: Partial<Client>
   }
 };
 
+
 export const deleteClient = async (clientId: string): Promise<void> => {
   try {
     await instance.delete(endpoints.deleteClient(clientId));
@@ -109,6 +107,7 @@ export const deleteClient = async (clientId: string): Promise<void> => {
     throw error;
   }
 };
+
 
 // Users
 export const fetchUsers = async (): Promise<User[]> => {
