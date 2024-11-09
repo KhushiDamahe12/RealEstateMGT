@@ -1,4 +1,4 @@
-import logo from '../../../../4th year full stack Assets/Lead Generation Landing page (Images)/logo.svg'
+import logo from '../../assets/logo.svg'
 import {Link} from 'react-router-dom'
 export default function Header() {
   return (

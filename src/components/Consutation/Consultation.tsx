@@ -1,7 +1,6 @@
 import React from 'react';
 import ContactForm from '../ContactForm/ContactForm';
-import bgImage from '../../../../4th year full stack Assets/Lead Generation Landing page (Images)/young-couple-examining-blueprints-with-real-estate-agent-while-buying-new-home 1.svg';
-
+import bgImage from '../../assets/young-couple-examining-blueprints-with-real-estate-agent-while-buying-new-home 1.svg'
 const ConsultationSection: React.FC = () => {
     return (
         <section className="relative w-full ">

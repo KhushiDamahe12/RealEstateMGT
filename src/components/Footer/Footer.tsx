@@ -1,6 +1,6 @@
 import { FiFacebook, FiTwitter, FiLinkedin, FiYoutube } from 'react-icons/fi';
 import NewsletterSubscription from '../NewsLetter/NewsLetter';
-import logo from '../../../../4th year full stack Assets/Lead Generation Landing page (Images)/logolight.svg'
+import logo from '../../assets/logolight.svg'
 
 export default function Footer() {
   return (
