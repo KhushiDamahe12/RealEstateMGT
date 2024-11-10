@@ -36,8 +36,9 @@ const ClientList: React.FC = () => {
         </Link>
       </div>
       <div className="clients-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {clients.slice(0, 4).map((client) => (
+        {clients.slice(0, 4).map((client,index) => (
           <ClientCard
+          key={index}
             _id={client.id}
             image={typeof client.image === 'string' ? client.image : ''} // Ensure it's a URL
             name={client.name}
