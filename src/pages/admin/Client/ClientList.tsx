@@ -28,7 +28,12 @@ const ClientList: React.FC = () => {
   }
 
   return (
+    
     <div className="client-list-section">
+      <p>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, omnis.
+
+      </p>
       <div className="flex items-end">
         <h2 className="text-2xl font-bold mb-4 mr-auto">Clients</h2>
         <Link to="/admin/add-client">
