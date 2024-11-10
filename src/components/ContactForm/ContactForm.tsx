@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ContactForm as ContactFormType } from '../../types';
+import {addContact} from  '../../services/api'
 
 const ContactForm: React.FC = () => {
     const [formData, setFormData] = useState<ContactFormType>({
@@ -14,12 +15,18 @@ const ContactForm: React.FC = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Implement your submit logic here
-        console.log('Form data submitted:', formData);
-        setFormData({ fullName: '', email: '', mobile: '', city: '' });
-    };
+        try {
+          await addContact(formData);
+          console.log('Form data submitted:', formData);
+          alert('Contact form submitted successfully!');
+          setFormData({ fullName: '', email: '', mobile: '', city: '' });
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('Failed to submit contact form');
+        }
+      };
 
     return (
         <form onSubmit={handleSubmit} className="bg-indigo-500 p-4 px-8 rounded-lg shadow-md max-w-md sm:w-96 text-center bg-opacity-50">

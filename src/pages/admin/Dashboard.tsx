@@ -2,8 +2,8 @@ import React from 'react';
 import DashboardLayout from './DashboardLayout';
 import ProjectList from './Projects/ProjectList';
 import ClientList from './Client/ClientList';
-import NewsletterSubscriptions from './SubscriberList';
-import ContactFormDetails from './ContactList';
+import NewsletterSubscriptions from './Subscriber/SubscriberList';
+import ContactFormDetails from './Contacts/ContactList';
 
 const Dashboard: React.FC = () => {
   return (

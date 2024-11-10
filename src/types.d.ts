@@ -2,12 +2,12 @@ export interface Project {
     id: string;
     name: string;
     description: string;
-    image: string;
+    image: File | string;
 }
 
 export interface Client {
   id: string;
-  image: string;
+  image: File | string;
   name: string;
   description: string;
   designation: string;
@@ -32,22 +32,18 @@ export interface User {
   role: string;
 }
 
-export interface Project {
-  id: string;
-  image: string;
-  name: string;
-  description: string;
+
+export interface Subscription {
+  _id: string;
+  email: string;
+  createdAt:string;
 }
 
 
 export interface Contact {
   id: string;
-  name: string;
+  fullName: string;
   email: string;
-  message: string;
-}
-
-export interface Subscription {
-  id: string;
-  email: string;
+  mobile: string;
+  city: string;
 }

@@ -8,8 +8,14 @@ export default function NewsletterSubscription() {
 
   const handleSubscribe = async (event: React.FormEvent) => {
     event.preventDefault();
-    await subscribe({ email });
-    setEmail(''); // Clear the input after subscription
+    try {
+      await subscribe({ email });
+      setEmail(''); // Clear the input after subscription
+      alert('Subscribed successfully!');
+    } catch (error) {
+      console.error('Error subscribing:', error);
+      alert('Failed to subscribe');
+    }
   };
 
   return (

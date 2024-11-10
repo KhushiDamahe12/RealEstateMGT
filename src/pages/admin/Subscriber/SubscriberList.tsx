@@ -1,33 +1,30 @@
 import React, { useState, useEffect } from 'react';
-
-interface Subscription {
-  id: string;
-  email: string;
-  subscribedOn: string;
-}
+import { fetchSubscriptions } from '../../../services/api';
+import { Subscription } from '../../../types';
+import Loader from '../../../components/Loader/Loader';
 
 const NewsletterSubscriptions: React.FC = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetching the subscriptions from an API (dummy data for now)
-    const fetchSubscriptions = async () => {
+    const getSubscriptions = async () => {
       try {
-        // Placeholder for actual API call
-        const subscriptionsData: Subscription[] = [
-          { id: '1', email: 'user1@example.com', subscribedOn: '2023-11-01' },
-          { id: '2', email: 'user2@example.com', subscribedOn: '2023-11-02' },
-          { id: '3', email: 'user3@example.com', subscribedOn: '2023-11-03' },
-          { id: '4', email: 'user4@example.com', subscribedOn: '2023-11-04' },
-        ];
+        const subscriptionsData = await fetchSubscriptions();
         setSubscriptions(subscriptionsData);
       } catch (error) {
         console.error('Error fetching subscriptions:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchSubscriptions();
+    getSubscriptions();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="newsletter-subscriptions-section">
@@ -41,11 +38,11 @@ const NewsletterSubscriptions: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {subscriptions.map((subscription, index) => (
-            <tr key={subscription.id} className="border-t border-gray-300">
+          {subscriptions.slice(0,5).map((subscription, index) => (
+            <tr key={subscription._id} className="border-t border-gray-300">
               <td className="px-4 py-2 border border-gray-300 text-left md:text-center">{index + 1}</td>
               <td className="px-4 py-2 border border-gray-300 text-left md:text-center">{subscription.email}</td>
-              <td className="px-4 py-2 border border-gray-300 text-left md:text-center">{subscription.subscribedOn}</td>
+              <td className="px-4 py-2 border border-gray-300 text-left md:text-center">{new Date(subscription.createdAt).toLocaleDateString('en-GB')}</td>
             </tr>
           ))}
         </tbody>

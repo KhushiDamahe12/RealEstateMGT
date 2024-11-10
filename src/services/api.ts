@@ -1,6 +1,6 @@
 import axios from 'axios';
 import endpoints from './apiconfig';
-import { Project, User, Client, Contact, Subscription } from '../types';
+import { Project, User, Client, ContactForm, Subscription, Contact } from '../types';
 
 const instance = axios.create({
   baseURL: endpoints.fetchProjects, // Base URL can be set dynamically
@@ -9,6 +9,22 @@ const instance = axios.create({
   },
 });
 
+// Add a request interceptor
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Export instance
+export default instance;
 // Authentication
 export const register = async (userData: User): Promise<User> => {
   try {
@@ -41,14 +57,29 @@ export const fetchProjects = async (): Promise<Project[]> => {
   }
 };
 export const addProject = async (projectData: Project): Promise<Project> => {
+  const formData = new FormData();
+  if (projectData.image instanceof File) {
+    formData.append('image', projectData.image);
+  } else {
+    formData.append('image', projectData.image); // Assuming backend handles string URL correctly
+  }
+  formData.append('name', projectData.name);
+  formData.append('description', projectData.description);
+
   try {
-    const response = await instance.post(endpoints.addProject, projectData);
+    const response = await instance.post(endpoints.addProject, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error adding project:', error);
     throw error;
   }
 };
+
+
 export const updateProject = async (projectId: string, projectData: Partial<Project>): Promise<Project> => {
   try {
     const response = await instance.put(endpoints.updateProject(projectId), projectData);
@@ -79,14 +110,28 @@ export const fetchClients = async (): Promise<Client[]> => {
   }
 };
 export const addClient = async (clientData: Client): Promise<Client> => {
+  const formData = new FormData();
+  if (clientData.image instanceof File) {
+    formData.append('image', clientData.image);
+  }
+  formData.append('name', clientData.name);
+  formData.append('description', clientData.description);
+  formData.append('designation', clientData.designation);
+
   try {
-    const response = await instance.post(endpoints.addClient, clientData);
+    const response = await instance.post(endpoints.addClient, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error adding client:', error);
     throw error;
   }
 };
+
+
 
 export const updateClient = async (clientId: string, clientData: Partial<Client>): Promise<Client> => {
   try {
@@ -170,7 +215,8 @@ export const fetchContacts = async (): Promise<Contact[]> => {
   }
 };
 
-export const addContact = async (contactData: Contact): Promise<Contact> => {
+
+export const addContact = async (contactData: ContactForm): Promise<ContactForm> => {
   try {
     const response = await instance.post(endpoints.addContact, contactData);
     return response.data;
@@ -199,6 +245,7 @@ export const fetchSubscriptions = async (): Promise<Subscription[]> => {
     throw error;
   }
 };
+
 
 export const subscribe = async (subscriptionData: { email: string }): Promise<Subscription> => {
   try {

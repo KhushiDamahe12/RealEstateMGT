@@ -1,39 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import ClientCard from './ClientCard';
 import { Client } from '../../../types';
-
-const AllClientsPage: React.FC = () => {
+import { fetchClients } from '../../../services/api';
+import { Link } from 'react-router-dom';
+import Loader from '../../../components/Loader/Loader';
+const ClientList: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetching the clients from an API (dummy data for now)
-    const fetchClients = async () => {
+    const getClients = async () => {
       try {
-        // Placeholder for actual API call
-        const clientsData: Client[] = [
-          { id: '1', name: 'Client One', description: 'Description of Client One', image: 'client1.jpg', designation: 'CEO' },
-          { id: '2', name: 'Client Two', description: 'Description of Client Two', image: 'client2.jpg', designation: 'CTO' },
-          { id: '3', name: 'Client Three', description: 'Description of Client Three', image: 'client3.jpg', designation: 'CFO' },
-          { id: '4', name: 'Client Four', description: 'Description of Client Four', image: 'client4.jpg', designation: 'COO' },
-          { id: '5', name: 'Client Five', description: 'Description of Client Five', image: 'client5.jpg', designation: 'CMO' },
-        ];
+        const clientsData = await fetchClients();
         setClients(clientsData);
       } catch (error) {
         console.error('Error fetching clients:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchClients();
+    getClients();
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="all-clients-page">
-      <h2 className="text-2xl font-bold mb-4">All Clients</h2>
+    <div className="client-list-section px-8 py-4">
+      <div className="flex items-end">
+        <h2 className="text-2xl font-bold mb-4 mr-auto">Clients</h2>
+        <Link to="/admin/add-client">
+          <button className="my-4 w-32 bg-blue-500 text-white py-2 px-4 rounded">Add Client</button>
+        </Link>
+      </div>
       <div className="clients-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {clients.map((client) => (
           <ClientCard
-            key={client.id}
-            image={client.image}
+            _id={client.id}
+            image={typeof client.image === 'string' ? client.image : ''} // Ensure it's a URL
             name={client.name}
             description={client.description}
             designation={client.designation}
@@ -44,4 +50,4 @@ const AllClientsPage: React.FC = () => {
   );
 };
 
-export default AllClientsPage;
+export default ClientList;

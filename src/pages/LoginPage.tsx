@@ -1,8 +1,13 @@
 import {login} from '../services/api'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import {useAuth} from '../context/authContext'
+
 
 export default function LoginPage() {
+
+    const {setToken} = useAuth();
+
     const [email, setEmail] = useState("admin@example.com");
      const [password, setPassword] = useState("adminpasssword"); 
     const [error, setError] = useState('');
@@ -16,6 +21,7 @@ export default function LoginPage() {
         try {
             const result = await login({ email, password });
             if (result) {
+                setToken(result.token);
                 console.log('Login successful:', result);
                 navigate('/admin')
                

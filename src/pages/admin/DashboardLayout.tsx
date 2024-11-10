@@ -7,12 +7,12 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
-    <div className="flex h-full bg-gray-200 ">
-      <aside className="w-64 bg-gray-800 text-white flex flex-col">
+    <div className="flex h-screen bg-gray-200">
+      <aside className="w-64 bg-gray-800 text-white flex flex-col overflow-hidden">
         <div className="h-16 flex items-center justify-center shadow-md">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
         </div>
-        <nav className="flex-1 p-4">
+        <nav className="flex-1 p-4 overflow-hidden">
           <ul>
             <li>
               <Link to="/admin" className="block py-2 px-4 hover:bg-gray-700">Dashboard</Link>
@@ -32,7 +32,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </ul>
         </nav>
       </aside>
-      <main className="flex-1 p-8 space-y-5">
+      <main className="flex-1 p-8 space-y-5 overflow-auto">
         {children}
       </main>
     </div>

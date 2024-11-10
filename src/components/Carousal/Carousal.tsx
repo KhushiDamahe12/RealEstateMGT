@@ -172,7 +172,7 @@ const FeaturesCarousel = () => {
 }
         `}
       </style>
-      <div className="bg-blue-50 py-8 px-8">
+      <div className="bg-blue-50 py-8 px-8" id='services'>
         <h2 className="text-center font-bold text-xl mb-6">Explore What We Offer</h2>
         <Slider {...settings}>
           {cardData.map((card, index) => (

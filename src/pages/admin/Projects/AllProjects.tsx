@@ -1,42 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import { Project } from '../../../types';
-
-const AllProjectsPage: React.FC = () => {
+import { fetchProjects } from '../../../services/api';
+import { Link } from 'react-router-dom';
+import Loader from '../../../components/Loader/Loader';
+const ProjectList: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetching the projects from an API (dummy data for now)
-    const fetchProjects = async () => {
+    const getProjects = async () => {
       try {
-        // Placeholder for actual API call
-        const projectsData = [
-          { id: '1', image: 'project1.jpg', name: 'Project One', description: 'Brief description of Project One', status: 'In Progress' },
-          { id: '2', image: 'project2.jpg', name: 'Project Two', description: 'Brief description of Project Two', status: 'Completed' },
-          { id: '3', image: 'project3.jpg', name: 'Project Three', description: 'Brief description of Project Three', status: 'In Progress' },
-          { id: '4', image: 'project4.jpg', name: 'Project Four', description: 'Brief description of Project Four', status: 'Completed' },
-          { id: '5', image: 'project5.jpg', name: 'Project Five', description: 'Brief description of Project Five', status: 'In Progress' },
-        ];
+        const projectsData = await fetchProjects();
         setProjects(projectsData);
       } catch (error) {
         console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchProjects();
+    getProjects();
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="all-projects-page">
-      <h2 className="text-2xl font-bold mb-4">All Projects</h2>
+    <div className="project-list-section  px-8 py-4">
+      <div className="flex items-end">
+        <h2 className="text-2xl font-bold mb-4 mr-auto">Projects</h2>
+        <Link to="/admin/add-project">
+          <button className="my-4 w-32 bg-blue-500 text-white py-2 px-4 rounded">Add Project</button>
+        </Link>
+      </div>
       <div className="projects-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
-            image={project.image}
+            image={typeof project.image === 'string' ? project.image : URL.createObjectURL(project.image)} // Handle both string and File
             name={project.name}
             description={project.description}
-
           />
         ))}
       </div>
@@ -44,4 +49,4 @@ const AllProjectsPage: React.FC = () => {
   );
 };
 
-export default AllProjectsPage;
+export default ProjectList;
